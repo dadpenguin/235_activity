@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Page</title>
+</head>
+<body>
+    <h1>Keyword: {{ keyword }} </h1>
+
+    <form action = '/search/all/{{ keyword }}' method = 'get'>
+        <input type="text" name="keyword">
+        <button type="submit">Search</button>
+    </form>
+
+    <form action = '/search/all/{{ keyword }}' method = 'get'>
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        <button type="submit">All</button>
+    </form>
+
+    <form action = '/search/title/{{ keyword }}' method = 'get'>
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        <button type="submit">Title</button>
+    </form>
+
+    <form action = '/search/album/{{ keyword }}' method = 'get'>
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        <button type="submit">Album</button>
+    </form>
+
+    <form action = '/search/artist/{{ keyword }}' method = 'get'>
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        <button type="submit">Artist</button>
+    </form>
+
+    <form action = '/search/genre/{{ keyword }}' method = 'get'>
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        <button type="submit">Genre</button>
+    </form>
+
+    {% if results == [] %}
+
+        <h2>No Results</h2>
+
+    {% else %}
+
+        <ul>
+            {% for item in results %}
+                <li><b>{{ item }}</b></li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+
+</body>
+</html>
