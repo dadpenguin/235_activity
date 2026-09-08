@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Page</title>
+
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="../static/navbar.css">
+
 </head>
 <body>
     <h1>Keyword: {{ keyword }} </h1>
 
-    <form action = '/search/all/{{ keyword }}' method = 'get'>
-        <input type="text" name="keyword">
-        <button type="submit">Search</button>
-    </form>
+    {% include 'nav_bar.html' %}
 
     <form action = '/search/all/{{ keyword }}' method = 'get'>
         <input type="hidden" name="keyword" value="{{ keyword }}">
