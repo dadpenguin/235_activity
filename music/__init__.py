@@ -11,11 +11,21 @@ from music.adapters.memory_repository import MemoryRepository, populate
 def register_blueprints(app: Flask):
     with app.app_context():
 
+        # Authentication blueprint
         from .authentication import authentication
-        app.register_blueprint(authentication.authentication_blueprint)
+        app.register_blueprint(
+            authentication.authentication_blueprint
+        )
+
+        # Browse blueprint
+        from .browse import browse_blueprint
+        app.register_blueprint(
+            browse_blueprint
+        )
 
 
 def init_config(app: Flask, test_config):
+
     # Create default root: music/adapters/data
     data_path = Path('music') / 'adapters' / 'data'
 
@@ -31,25 +41,22 @@ def init_config(app: Flask, test_config):
 def create_app(test_config=None):
     """Construct the core application."""
 
-    # Create the Flask app object.
+    # Create the Flask app object
     app = Flask(__name__)
 
     data_path = init_config(app, test_config)
 
+    # Create repository
     repository = MemoryRepository()
+
     repo.repo_instance = repository
 
     app.extensions['repository'] = repository
 
-    # populate(data_path, repository)
+    # Load data into repository
+    populate(data_path, repository)
 
+    # Register blueprints
     register_blueprints(app)
-
-
-
-    # temporary homepage
-    @app.route('/')
-    def homepage():
-        return "homepage"
 
     return app

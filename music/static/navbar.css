@@ -1,0 +1,343 @@
+/* =========================================
+   NAVIGATION BAR
+   ========================================= */
+
+.navbar {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0.8rem 1.2rem;
+
+    background-color: #171b2a;
+
+    border: 1px solid #292e40;
+    border-radius: 10px;
+
+    gap: 1rem;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   LEFT SIDE / LOGO
+   ========================================= */
+
+.navbar-left {
+    flex-shrink: 0;
+}
+
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 70px;
+    height: 40px;
+
+    color: #ff7900;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+
+.navbar-logo:hover {
+    color: #ffffff;
+}
+
+
+/* =========================================
+   SEARCH BAR
+   ========================================= */
+
+.navbar-search {
+    display: flex;
+    align-items: center;
+
+    flex: 1;
+
+    max-width: 450px;
+
+    gap: 0.5rem;
+}
+
+
+.navbar-search-input {
+    flex: 1;
+
+    height: 40px;
+
+    padding: 0 0.9rem;
+
+    background-color: #0d101d;
+
+    color: #ffffff;
+
+    border: 1px solid #34394b;
+    border-radius: 7px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.navbar-search-input::placeholder {
+    color: #7f8597;
+}
+
+
+.navbar-search-input:focus {
+    border-color: #ff7900;
+
+    box-shadow: 0 0 0 2px rgba(255, 121, 0, 0.15);
+}
+
+
+/* =========================================
+   SEARCH BUTTON
+   ========================================= */
+
+.navbar-search-button {
+    height: 40px;
+
+    padding: 0 1rem;
+
+    background-color: #ff7900;
+
+    color: #ffffff;
+
+    border: 1px solid #ff7900;
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.navbar-search-button:hover {
+    background-color: #e66d00;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   RIGHT SIDE NAVIGATION
+   ========================================= */
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+
+    margin-left: auto;
+
+    gap: 0.8rem;
+}
+
+
+/* All links on right side */
+
+.navbar-right a {
+    color: #ffffff;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   BROWSE LINK
+   ========================================= */
+
+.nav-link {
+    padding: 0.55rem 0.8rem;
+
+    color: #ffffff;
+
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.nav-link:hover {
+    color: #ff7900;
+
+    background-color: #202536;
+}
+
+
+/* =========================================
+   LOGIN + SIGN UP BUTTONS
+   ========================================= */
+
+.nav-button {
+    padding: 0.55rem 1rem;
+
+    border-radius: 7px;
+
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+   ========================================= */
+
+.login-button {
+    color: #ffffff;
+
+    background-color: #202536;
+
+    border: 1px solid #3c4256;
+}
+
+
+.login-button:hover {
+    color: #ffffff;
+
+    background-color: #2a3043;
+
+    border-color: #555c72;
+}
+
+
+/* =========================================
+   SIGN UP BUTTON
+   ========================================= */
+
+.signup-button {
+    color: #ff7900 !important;
+    background-color: transparent;
+
+    border: 1px solid #ff7900;
+    border-radius: 7px;
+
+    font-weight: bold;
+}
+
+.signup-button:hover {
+    color: #ffffff !important;
+    background-color: #ff7900;
+}
+
+
+/* =========================================
+   KEYBOARD FOCUS
+   ========================================= */
+
+.navbar a:focus-visible,
+.navbar button:focus-visible,
+.navbar input:focus-visible {
+    outline: 2px solid #ff7900;
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+
+    .navbar-search {
+        order: 3;
+
+        width: 100%;
+        max-width: none;
+
+        flex-basis: 100%;
+    }
+
+
+    .navbar-right {
+        margin-left: auto;
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE - MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 0.7rem;
+    }
+
+
+    .navbar-left {
+        margin: auto;
+    }
+
+
+    .navbar-search {
+        order: 3;
+    }
+
+
+    .navbar-right {
+        width: 100%;
+
+        justify-content: center;
+
+        gap: 0.4rem;
+    }
+
+
+    .nav-link,
+    .nav-button {
+        padding: 0.5rem 0.7rem;
+
+        font-size: 0.8rem;
+    }
+
+
+    .navbar-search-button {
+        padding: 0 0.7rem;
+    }
+}
