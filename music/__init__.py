@@ -8,6 +8,25 @@ import music.adapters.repository as repo
 from music.adapters.memory_repository import MemoryRepository, populate
 
 
+def register_blueprints(app: Flask):
+    with app.app_context():
+
+        from .authentication import authentication
+        app.register_blueprint(authentication.authentication_blueprint)
+
+
+def init_config(app: Flask, test_config):
+    # Create default root: music/adapters/data
+    data_path = Path('music') / 'adapters' / 'data'
+
+    if test_config is None:
+        app.config.from_object('config.Config')
+    else:
+        app.config.from_mapping(test_config)
+        data_path = app.config['TEST_DATA_PATH']
+
+    return data_path
+
 
 def create_app(test_config=None):
     """Construct the core application."""
@@ -15,23 +34,22 @@ def create_app(test_config=None):
     # Create the Flask app object.
     app = Flask(__name__)
 
-    # Create default root: music/adapters/data
-    data_path = Path('music') / 'adapters' / 'data'
+    data_path = init_config(app, test_config)
 
-    if test_config is None:
-        # Configure the app from configuration-file settings.
-        app.config.from_object('config.Config')
-    else:
-        # Load test configuration, and override any configuration settings.
-        app.config.from_mapping(test_config)
-        data_path = app.config['TEST_DATA_PATH']
-
-    # Create and expose the repository used by services and blueprints.
     repository = MemoryRepository()
     repo.repo_instance = repository
+
     app.extensions['repository'] = repository
 
-    # fill the content of the repository from the provided csv files
-    populate(data_path, repository)
+    # populate(data_path, repository)
+
+    register_blueprints(app)
+
+
+
+    # temporary homepage
+    @app.route('/')
+    def homepage():
+        return "homepage"
 
     return app

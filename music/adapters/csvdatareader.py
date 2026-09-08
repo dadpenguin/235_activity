@@ -1,13 +1,11 @@
-import os
-import csv
 import ast
+import csv
+import os
 
-
-from music.domainmodel.artist import Artist
 from music.domainmodel.album import Album
-from music.domainmodel.track import Track
+from music.domainmodel.artist import Artist
 from music.domainmodel.genre import Genre
-
+from music.domainmodel.track import Track
 
 # Complete the implementation of the CSVDataReader class.
 # The last five tests in tests/unit/test_domainmodel.py are currently expected
