@@ -13,12 +13,12 @@
 
 
     {% if favourited == False %}
-        <form action = "{{ url_for('favourite', track_id=track.track_id) }}" method = 'get'>
+        <form action = "{{ url_for('favourite_bp.favourite', track_id=track.track_id) }}" method = 'get'>
             <button type="submit">Favourite</button>
         </form>
 
     {% else %}
-        <form action = "{{ url_for('unfavourite', track_id=track.track_id) }}" method = 'get'>
+        <form action = "{{ url_for('unfavourite_bp.unfavourite', track_id=track.track_id) }}" method = 'get'>
             <button type="submit">Unfavourite</button>
         </form>
 

@@ -8,12 +8,27 @@ import music.adapters.repository as repo
 
 from music.adapters.memory_repository import MemoryRepository, populate
 
+from flask import Flask, render_template, redirect, url_for, request
+from music.domainmodel.favourite import Favourite
+from music.domainmodel.user import User
+from search.search import search_blueprint
+
 
 def register_blueprints(app: Flask):
     with app.app_context():
 
         from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
+
+        from favourite import favourite
+        app.register_blueprint(favourite.favourite_blueprint)
+        app.register_blueprint(favourite.unfavourite_blueprint)
+
+        from search import search
+        app.register_blueprint(search.search_blueprint)
+
+        from track_detail import track_detail
+        app.register_blueprint(track_detail.track_detail_blueprint)
 
 
 def init_config(app: Flask, test_config):
@@ -38,7 +53,9 @@ def create_app(test_config=None):
     data_path = init_config(app, test_config)
 
     repository = MemoryRepository()
-    repo.repo_instance = repository
+    repo.repo_instance = repository #Also don't change this
+
+    populate("music/adapters/data", repository) #Remove this and all my html pages will break
 
     app.extensions['repository'] = repository
 
@@ -54,3 +71,6 @@ def create_app(test_config=None):
         return "homepage"
 
     return app
+
+
+
