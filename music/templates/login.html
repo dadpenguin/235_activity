@@ -1,0 +1,24 @@
+{% extends "auth.html" %}
+
+{% block title %}Log In{% endblock %}
+{% block auth_heading %}Welcome Back{% endblock %}
+
+{% block form_content %}
+<form method="POST" action="{{ url_for('login') }}">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username() }}
+    </div>
+
+    <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password() }}
+    </div>
+
+    {{ form.submit() }}
+</form>
+
+<p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+{% endblock %}
