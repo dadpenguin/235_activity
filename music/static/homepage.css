@@ -1,0 +1,207 @@
+/* =========================================
+   PAGE
+   ========================================= */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background-color: #0d101d;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================
+   HOMEPAGE CONTENT
+   ========================================= */
+
+.home-card {
+    min-height: calc(100vh - 80px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    /* No middle container/card */
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    padding: 2rem;
+}
+
+
+/* =========================================
+   HERO TITLE
+   ========================================= */
+
+.hero-title {
+    margin: 0 0 1rem 0;
+
+    color: #ffffff;
+
+    font-size: 5.5rem;
+    font-weight: 700;
+
+    /* Keep Discover 123+ Music on one line */
+    white-space: nowrap;
+}
+
+
+/* Orange track number */
+
+.highlight {
+    color: #ff7900;
+}
+
+
+/* =========================================
+   DESCRIPTION
+   ========================================= */
+
+.hero-desc {
+    margin: 0 0 2rem 0;
+
+    color: #a8adbd;
+
+    font-size: 2.5rem;
+}
+
+
+/* =========================================
+   BUTTON CONTAINER
+   ========================================= */
+
+.action-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1.5rem;
+}
+
+
+/* =========================================
+   SEARCH + BROWSE BUTTONS
+   ========================================= */
+
+.search-btn,
+.browse-btn {
+    min-width: 130px;
+
+    padding: 1rem 2rem;
+
+    border-radius: 10px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    text-align: center;
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================
+   SEARCH BUTTON
+   ========================================= */
+
+.search-btn {
+    color: #ffffff;
+
+    background-color: #ff7900;
+
+    border: 1px solid #ff7900;
+}
+
+
+.search-btn:hover {
+    background-color: #e66d00;
+
+    border-color: #e66d00;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   BROWSE BUTTON
+   ========================================= */
+
+.browse-btn {
+    color: #ffffff;
+
+    background-color: #171b2a;
+
+    border: 1px solid #34394b;
+}
+
+
+.browse-btn:hover {
+    color: #ff7900;
+
+    border-color: #ff7900;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .hero-title {
+        font-size: 4rem;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .home-card {
+        padding: 1rem;
+    }
+
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+
+    .hero-desc {
+        font-size: 1rem;
+    }
+
+
+    .search-btn,
+    .browse-btn {
+        min-width: 110px;
+
+        padding: 0.8rem 1.4rem;
+
+        font-size: 1rem;
+    }
+
+
+    .action-row {
+        gap: 0.8rem;
+    }
+}

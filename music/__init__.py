@@ -7,6 +7,7 @@ from flask import Flask
 import music.adapters.repository as repo
 from music.adapters.memory_repository import MemoryRepository, populate
 
+from music.browse import browse_blueprint
 
 
 def create_app(test_config=None):
@@ -31,7 +32,10 @@ def create_app(test_config=None):
     repo.repo_instance = repository
     app.extensions['repository'] = repository
 
-    # fill the content of the repository from the provided csv files
+    # Fill the repository from the CSV files.
     populate(data_path, repository)
+
+    # Register browse routes.
+    app.register_blueprint(browse_blueprint)
 
     return app

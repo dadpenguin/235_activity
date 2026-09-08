@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Favourites</title>
+
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="../static/navbar.css">
+    <!-- favourites CSS -->
+    <link rel="stylesheet" href="../static/favourites.css">
+</head>
+
+<body>
+
+    {% include 'nav_bar.html' %}
+
+    <main class="favourites-page">
+
+        <div class="favourites-header">
+            <div>
+                <h1>My Favourites</h1>
+                <p>Your saved tracks in one place.</p>
+            </div>
+
+            <span class="favourite-count">
+                {{ favourites|length }} saved
+            </span>
+        </div>
+
+
+        {% if favourites %}
+
+            <div class="favourites-grid">
+
+                {% for favourite in favourites %}
+
+                    <article class="favourite-card">
+
+                        <div class="album-placeholder">
+                            ♪
+                        </div>
+
+                        <div class="track-details">
+
+                            <h2>
+                                {{ favourite.track.title }}
+                            </h2>
+
+                            {% if favourite.track.artist %}
+                                <p class="artist">
+                                    {{ favourite.track.artist.full_name }}
+                                </p>
+                            {% endif %}
+
+                            {% if favourite.track.album %}
+                                <p class="album">
+                                    {{ favourite.track.album.title }}
+                                </p>
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="favourite-actions">
+
+                            <a
+                                href="/track/{{ favourite.track.track_id }}"
+                                class="view-button"
+                            >
+                                View
+                            </a>
+
+
+                            <form
+                                action="/favourites/remove/{{ favourite.track.track_id }}"
+                                method="POST"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="remove-button"
+                                >
+                                    ♥ Remove
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-favourites">
+
+                <div class="empty-heart">
+                    ♡
+                </div>
+
+                <h2>No favourites yet</h2>
+
+                <p>
+                    Tracks you add to your favourites will appear here.
+                </p>
+
+                <a
+                    href="/browse"
+                    class="browse-button"
+                >
+                    Browse Music
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+
+</html>
