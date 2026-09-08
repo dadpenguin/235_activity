@@ -11,9 +11,18 @@
     <p>Track Duration: <b>{{ track.track_duration }}</b></p>
     <p>Track Album: <b>{{ track.album.title }}</b></p>
 
-    <form action = '/favourite' method = 'post'>
-        <button type="submit">Favourite</button>
-    </form>
+
+    {% if favourited == False %}
+        <form action = "{{ url_for('favourite', track_id=track.track_id) }}" method = 'get'>
+            <button type="submit">Favourite</button>
+        </form>
+
+    {% else %}
+        <form action = "{{ url_for('unfavourite', track_id=track.track_id) }}" method = 'get'>
+            <button type="submit">Unfavourite</button>
+        </form>
+
+    {% endif %}
 
     <p>
         Track Genre(s):
