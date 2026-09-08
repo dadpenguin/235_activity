@@ -1,3 +1,44 @@
-<p>
-    Homepage
-</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Music Library</title>
+
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="../static/navbar.css">
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="../static/homepage.css">
+</head>
+
+<body>
+
+{%  include 'navbar.html' %}
+
+    <div class="home-card">
+
+        <h1 class="hero-title">
+            Discover <span class="highlight">{{ total_tracks }}+ </span> Music
+        </h1>
+
+        <p class="hero-desc">
+            Explore new music, discover your favourites, and find the perfect track for every mood.
+        </p>
+
+        <div class="action-row">
+
+
+            <a href="/browse" class="browse-btn">
+                Browse
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
