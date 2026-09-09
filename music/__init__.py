@@ -17,8 +17,17 @@ from search.search import search_blueprint
 def register_blueprints(app: Flask):
     with app.app_context():
 
+        # Authentication blueprint
         from .authentication import authentication
-        app.register_blueprint(authentication.authentication_blueprint)
+        app.register_blueprint(
+            authentication.authentication_blueprint
+        )
+
+        # Browse blueprint
+        from .browse import browse_blueprint
+        app.register_blueprint(
+            browse_blueprint
+        )
 
         from favourite import favourite
         app.register_blueprint(favourite.favourite_blueprint)
@@ -32,6 +41,7 @@ def register_blueprints(app: Flask):
 
 
 def init_config(app: Flask, test_config):
+
     # Create default root: music/adapters/data
     data_path = Path('music') / 'adapters' / 'data'
 
@@ -47,28 +57,25 @@ def init_config(app: Flask, test_config):
 def create_app(test_config=None):
     """Construct the core application."""
 
-    # Create the Flask app object.
+    # Create the Flask app object
     app = Flask(__name__)
 
     data_path = init_config(app, test_config)
 
+    # Create repository
     repository = MemoryRepository()
+
     repo.repo_instance = repository #Also don't change this
 
     populate("music/adapters/data", repository) #Remove this and all my html pages will break
 
     app.extensions['repository'] = repository
 
+    # Load data into repository
+    populate(data_path, repository)
+
+    # Register blueprints
     register_blueprints(app)
 
-
-
-    # temporary homepage
-    @app.route('/')
-    def homepage():
-        return "homepage"
-
     return app
-
-
 
