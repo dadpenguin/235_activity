@@ -41,6 +41,31 @@ class MemoryRepository(AbstractRepository):
             if search_term in track.title.lower()
         ]
 
+    def get_albums_by_name(self, album_name: str) -> list:
+        search_term = album_name.strip().lower()
+        matching_albums = set()
+        for track in self.__tracks:
+            if track.album is not None and track.album.title and search_term in track.album.title.lower():
+                matching_albums.add(track.album)
+        return list(matching_albums)
+
+    def get_artists_by_name(self, artist_name: str) -> list:
+        search_term = artist_name.strip().lower()
+        matching_artists = set()
+        for track in self.__tracks:
+            if track.artist is not None and search_term in track.artist.full_name.lower():
+                matching_artists.add(track.artist)
+        return list(matching_artists)
+
+    def get_genres_by_name(self, genre_name: str) -> list:
+            search_term = genre_name.strip().lower()
+            matching_genres = set()
+            for track in self.__tracks:
+                for genre in track.genres:
+                    if search_term in genre.name.lower():
+                        matching_genres.add(genre)
+            return list(matching_genres)
+
     def get_tracks_by_artist(self, artist_name: str) -> list[Track]:
         search_term = artist_name.strip().lower()
         return [
