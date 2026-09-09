@@ -22,10 +22,11 @@ def register_blueprints(app: Flask):
         )
 
         # Browse blueprint
-        from .browse import browse_blueprint
+        from .root import home as root_file
         app.register_blueprint(
-            browse_blueprint
+            root_file.root_blueprint
         )
+
 
         from .favourite import favourite
         app.register_blueprint(favourite.favourite_blueprint)

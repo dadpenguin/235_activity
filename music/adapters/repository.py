@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
+from music.domainmodel.album import Album
+from music.domainmodel.artist import Artist
 from music.domainmodel.favourite import Favourite
+from music.domainmodel.genre import Genre
 from music.domainmodel.review import Review
 from music.domainmodel.track import Track
 from music.domainmodel.user import User
@@ -27,6 +30,19 @@ class AbstractRepository(ABC):
 
     @abstractmethod
     def get_tracks_by_title(self, title: str) -> list[Track]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_albums_by_name(self, album_name: str) -> list[Album]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_artists_by_name(self, artist_name: str) -> list[Artist]:
+        raise NotImplementedError
+
+
+    @abstractmethod
+    def get_genres_by_name(self, genre_name: str) -> list[Genre]:
         raise NotImplementedError
 
     @abstractmethod
