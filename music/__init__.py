@@ -27,14 +27,13 @@ def register_blueprints(app: Flask):
             root_file.root_blueprint
         )
 
-
         from .favourite import favourite
         app.register_blueprint(favourite.favourite_blueprint)
 
         from .search import search
         app.register_blueprint(search.search_blueprint)
 
-        from .track_detail import track_detail
+        from .track import track_detail
         app.register_blueprint(track_detail.track_detail_blueprint)
 
         from .browse import browse
@@ -42,6 +41,8 @@ def register_blueprints(app: Flask):
 
         from .review import review
         app.register_blueprint(review.review_blueprint)
+
+
 
 
 def init_config(app: Flask, test_config):

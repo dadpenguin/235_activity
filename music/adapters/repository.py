@@ -85,4 +85,4 @@ class AbstractRepository(ABC):
     def get_favourite(self, user_name: str, track_id: int) -> Favourite | None:
         raise NotImplementedError
 
-repo_instance: AbstractRepository | None = None
+repo_instance: AbstractRepository

@@ -64,7 +64,6 @@ def login():
     if repo.repo_instance is None:
         raise RepoFailedToInitialize()
 
-
     if form.validate_on_submit():
         username = form.user_name.data
         password = form.password.data
@@ -111,7 +110,6 @@ def login_required(view):
             return redirect(url_for('authentication_bp.login'))
         return view(**kwargs)
     return wrapped_view
-
 
 class PasswordValid:
     def __init__(self, message=None):
