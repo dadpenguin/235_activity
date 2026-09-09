@@ -9,9 +9,7 @@ import music.adapters.repository as repo
 from music.adapters.memory_repository import MemoryRepository, populate
 
 from flask import Flask, render_template, redirect, url_for, request
-from music.domainmodel.favourite import Favourite
-from music.domainmodel.user import User
-from search.search import search_blueprint
+
 
 
 def register_blueprints(app: Flask):
@@ -29,13 +27,13 @@ def register_blueprints(app: Flask):
             browse_blueprint
         )
 
-        from favourite import favourite
+        from .favourite import favourite
         app.register_blueprint(favourite.favourite_blueprint)
 
-        from search import search
+        from .search import search
         app.register_blueprint(search.search_blueprint)
 
-        from track_detail import track_detail
+        from .track_detail import track_detail
         app.register_blueprint(track_detail.track_detail_blueprint)
 
 
@@ -77,4 +75,3 @@ def create_app(test_config=None):
     register_blueprints(app)
 
     return app
-

@@ -1,12 +1,12 @@
 Franklin
-- [ ] Authorization
+- [X] Authorization
 - [ ] Reviews
 
 Nathan
-- [ ] CSV Reader
-- [ ] Search and tracks
+- [X] CSV Reader
+- [X] Search and tracks
 
 Hameed
-- [ ] Homepage
-- [ ] Navigation Bar
+- [X] Homepage
+- [X] Navigation Bar
 - [ ] Favourites
