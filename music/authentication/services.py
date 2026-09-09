@@ -1,3 +1,4 @@
+from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from music.adapters.repository import AbstractRepository
@@ -16,6 +17,13 @@ class AuthenticationException(Exception):
 
 
 class AuthService:
+
+    @classmethod
+    def get_authenticated_user_name(cls,user_name: str):
+        user_name = session.get('user_name', None)
+
+        return user_name
+
     @classmethod
     def add_user(cls, user_name: str, password: str, repo: AbstractRepository):
         user = repo.get_user(user_name)
@@ -26,7 +34,6 @@ class AuthService:
 
         user = User(generate_random_user_id(),user_name, password_hash)
         repo.add_user(user)
-
 
     @classmethod
     def authenticate_user(cls, user_name: str, password: str, repo: AbstractRepository):
