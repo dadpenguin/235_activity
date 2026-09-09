@@ -19,7 +19,7 @@ class AuthenticationException(Exception):
 class AuthService:
 
     @classmethod
-    def get_authenticated_user_name(cls,user_name: str):
+    def get_authenticated_user_name(cls):
         user_name = session.get('user_name', None)
 
         return user_name

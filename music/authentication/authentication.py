@@ -77,7 +77,7 @@ def login():
             session.clear()
 
             session['user_name'] = form.user_name.data
-            return redirect(url_for('homepage'))
+            return redirect(url_for('root.homepage'))
 
         except UnknownUserException:
             user_name_not_recognised = 'user name not recognized, please supply another'
@@ -102,7 +102,7 @@ def login():
 @authentication_blueprint.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('home.bp'))
+    return redirect(url_for('root.homepage'))
 
 def login_required(view):
     @wraps(view)

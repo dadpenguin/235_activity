@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make a Review</title>
+</head>
+<body>
+
+    <form action="/review/make/final/{{ track_id }}" method="get">
+        <input type="number" name="stars" min = 1 max = 5 required><br>
+        <textarea name="paragraph" rows="5" cols="40" placeholder="Typer your review here:" required></textarea>
+        <button type="Submit">Submit</button>
+    </form>
+
+</body>
+</html>
