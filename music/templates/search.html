@@ -11,7 +11,7 @@
 <body>
     <h1>Keyword: {{ keyword }} </h1>
 
-    {% include 'nav_bar.html' %}
+    {% include 'navbar.html' %}
 
     <form action = '/search/all/{{ keyword }}' method = 'get'>
         <input type="hidden" name="keyword" value="{{ keyword }}">
@@ -45,8 +45,26 @@
     {% else %}
 
         <ul>
-            {% for item in results %}
-                <li><b>{{ item }}</b></li>
+            {% for item in results_track %}
+                <li><a href="/track/{{ item.track_id }}">{{ item.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for item in results_genre %}
+                <li><b>{{ item.name }}</b></li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for item in results_album %}
+                <li><b>{{ item.title }}</b></li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for item in results_artist %}
+                <li><b>{{ item.full_name }}</b></li>
             {% endfor %}
         </ul>
 
