@@ -6,22 +6,9 @@
     </a>
 
     <!-- Search bar -->
-    <form class="navbar-search" action='/search/all/keyword' method="GET">
-
-        <input
-            class="navbar-search-input"
-            type="text"
-            name="query"
-            placeholder="Search..."
-        >
-
-        <button
-            class="navbar-search-button"
-            type="submit"
-        >
-            Search
-        </button>
-
+    <form class="navbar-search" action="{{ url_for('search_bp.search') }}" method="GET">
+        <input class="navbar-search-input" type="text" name="q" placeholder="Search...">
+        <button class="navbar-search-button" type="submit">Search</button>
     </form>
 
     <!-- Right side -->

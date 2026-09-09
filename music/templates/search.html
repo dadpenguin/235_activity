@@ -9,60 +9,52 @@
 
 </head>
 <body>
-    <h1>Keyword: {{ keyword }} </h1>
-
     {% include 'navbar.html' %}
 
-    <form action = '/search/all/{{ keyword }}' method = 'get'>
-        <input type="hidden" name="keyword" value="{{ keyword }}">
-        <button type="submit">All</button>
-    </form>
+    <h1>Search Results for "{{ keyword }}" </h1>
 
-    <form action = '/search/title/{{ keyword }}' method = 'get'>
-        <input type="hidden" name="keyword" value="{{ keyword }}">
-        <button type="submit">Title</button>
-    </form>
+    <a href="{{ url_for('search_bp.search', q=keyword) }}">all</a>
+    <a href="{{ url_for('search_bp.search', q=keyword, type='track') }}">Track</a>
+    <a href="{{ url_for('search_bp.search', q=keyword, type='genre') }}">Genre</a>
+    <a href="{{ url_for('search_bp.search', q=keyword, type='artist') }}">Artist</a>
+    <a href="{{ url_for('search_bp.search', q=keyword, type='album') }}">Album</a>
 
-    <form action = '/search/album/{{ keyword }}' method = 'get'>
-        <input type="hidden" name="keyword" value="{{ keyword }}">
-        <button type="submit">Album</button>
-    </form>
 
-    <form action = '/search/artist/{{ keyword }}' method = 'get'>
-        <input type="hidden" name="keyword" value="{{ keyword }}">
-        <button type="submit">Artist</button>
-    </form>
 
-    <form action = '/search/genre/{{ keyword }}' method = 'get'>
-        <input type="hidden" name="keyword" value="{{ keyword }}">
-        <button type="submit">Genre</button>
-    </form>
 
-    {% if results == [] %}
+    {% if is_empty %}
 
         <h2>No Results</h2>
 
     {% else %}
 
         <ul>
+            <h1>Tracks</h1>
+
             {% for item in results_track %}
+
                 <li><a href="/track/{{ item.track_id }}">{{ item.title }}</a></li>
             {% endfor %}
         </ul>
 
         <ul>
+            <h1>Genre</h1>
+
             {% for item in results_genre %}
                 <li><b>{{ item.name }}</b></li>
             {% endfor %}
         </ul>
 
         <ul>
+            <h1>Album</h1>
+
             {% for item in results_album %}
                 <li><b>{{ item.title }}</b></li>
             {% endfor %}
         </ul>
 
         <ul>
+            <h1>Artists</h1>
             {% for item in results_artist %}
                 <li><b>{{ item.full_name }}</b></li>
             {% endfor %}
