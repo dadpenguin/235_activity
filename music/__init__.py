@@ -31,7 +31,6 @@ def register_blueprints(app: Flask):
 
         from favourite import favourite
         app.register_blueprint(favourite.favourite_blueprint)
-        app.register_blueprint(favourite.unfavourite_blueprint)
 
         from search import search
         app.register_blueprint(search.search_blueprint)
