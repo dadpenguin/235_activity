@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from music.adapters.repository import AbstractRepository
 from music.adapters.csvdatareader import CSVDataReader
+from music.adapters.repository import AbstractRepository
 from music.domainmodel.favourite import Favourite
 from music.domainmodel.review import Review
 from music.domainmodel.track import Track
@@ -35,17 +35,17 @@ class MemoryRepository(AbstractRepository):
 
     def get_tracks_by_title(self, title: str) -> list[Track]:
         search_term = title.strip().lower()
-        return [
-            track
-            for track in self.__tracks
-            if search_term in track.title.lower()
-        ]
+        return [track for track in self.__tracks if search_term in track.title.lower()]
 
     def get_albums_by_name(self, album_name: str) -> list:
         search_term = album_name.strip().lower()
         matching_albums = set()
         for track in self.__tracks:
-            if track.album is not None and track.album.title and search_term in track.album.title.lower():
+            if (
+                track.album is not None
+                and track.album.title
+                and search_term in track.album.title.lower()
+            ):
                 matching_albums.add(track.album)
         return list(matching_albums)
 
@@ -53,18 +53,21 @@ class MemoryRepository(AbstractRepository):
         search_term = artist_name.strip().lower()
         matching_artists = set()
         for track in self.__tracks:
-            if track.artist is not None and search_term in track.artist.full_name.lower():
+            if (
+                track.artist is not None
+                and search_term in track.artist.full_name.lower()
+            ):
                 matching_artists.add(track.artist)
         return list(matching_artists)
 
     def get_genres_by_name(self, genre_name: str) -> list:
-            search_term = genre_name.strip().lower()
-            matching_genres = set()
-            for track in self.__tracks:
-                for genre in track.genres:
-                    if search_term in genre.name.lower():
-                        matching_genres.add(genre)
-            return list(matching_genres)
+        search_term = genre_name.strip().lower()
+        matching_genres = set()
+        for track in self.__tracks:
+            for genre in track.genres:
+                if search_term in genre.name.lower():
+                    matching_genres.add(genre)
+        return list(matching_genres)
 
     def get_tracks_by_artist(self, artist_name: str) -> list[Track]:
         search_term = artist_name.strip().lower()
@@ -90,11 +93,7 @@ class MemoryRepository(AbstractRepository):
     def get_user(self, user_name: str) -> User | None:
         normalized_name = user_name.strip().lower()
         return next(
-            (
-                user
-                for user in self.__users
-                if user.user_name == normalized_name
-            ),
+            (user for user in self.__users if user.user_name == normalized_name),
             None,
         )
 
@@ -104,9 +103,7 @@ class MemoryRepository(AbstractRepository):
 
     def get_reviews_by_track(self, track_id: int) -> list[Review]:
         return [
-            review
-            for review in self.__reviews
-            if review.track.track_id == track_id
+            review for review in self.__reviews if review.track.track_id == track_id
         ]
 
     def add_favourite(self, favourite: Favourite) -> None:
@@ -122,6 +119,10 @@ class MemoryRepository(AbstractRepository):
             self.__favourites.remove(favourite)
 
     def get_favourites_by_user(self, user_name: str) -> list[Favourite]:
+
+        if user_name is None:
+            return None
+
         normalized_name = user_name.strip().lower()
         return [
             favourite
@@ -129,9 +130,7 @@ class MemoryRepository(AbstractRepository):
             if favourite.user.user_name == normalized_name
         ]
 
-    def get_favourite(
-        self, user_name: str, track_id: int
-    ) -> Favourite | None:
+    def get_favourite(self, user_name: str, track_id: int) -> Favourite | None:
         normalized_name = user_name.strip().lower()
         return next(
             (
