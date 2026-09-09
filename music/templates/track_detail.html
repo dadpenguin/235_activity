@@ -31,18 +31,32 @@
         {% endfor %}
     </p>
 
-            {% if reviews == [] %}
-                <h2>No Reviews</h2>
+    {% if logged_in == None %}
+        <form action = "/authentication/signup" method = "get">
+            <button type="button">Create Account to Make a Review</button>
+        </form>
 
-            {% else %}
-                <h2>Ratings: {{ average_rating }} </h2>
-                <p>
-                    {% for review in reviews %}
-                        <b>{{ review.user }}</b><br>
-                        <b>{{ review.rating }}</b><br>
-                        <b>{{ review.review_text }}</b>
-                    {% endfor %}
-                </p>
-            {% endif %}
+    {% else %}
+        <form action = "/review/make/{{ track.track_id }}" method = "get">
+            <button type = "submit">Make a Review!</button>
+        </form>
+
+
+    {% endif %}
+
+    {% if reviews == [] %}
+        <h2>No Reviews</h2>
+
+    {% else %}
+        <h2>Ratings: {{ average_rating }} </h2>
+        <p>
+            {% for review in reviews %}
+                <br>
+                <b>{{ review.user }}</b><br>
+                <b>{{ review.rating }}/5</b><br>
+                <b>{{ review.review_text }}</b><br>
+            {% endfor %}
+        </p>
+    {% endif %}
 </body>
 </html>
