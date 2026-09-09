@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Track Details</title>
+</head>
+<body>
+    <h1>{{ track.title }}</h1>
+    <h2>{{ track.artist.full_name }}</h2>
+    <h2>{{ track.release_year }}</h2>
+    <p>Track Duration: <b>{{ track.track_duration }}</b></p>
+    <p>Track Album: <b>{{ track.album.title }}</b></p>
+
+
+    {% if favourited == False %}
+        <form action = "{{ url_for('favourite_bp.favourite', track_id=track.track_id) }}" method = 'get'>
+            <button type="submit">Favourite</button>
+        </form>
+
+    {% else %}
+        <form action = "{{ url_for('unfavourite_bp.unfavourite', track_id=track.track_id) }}" method = 'get'>
+            <button type="submit">Unfavourite</button>
+        </form>
+
+    {% endif %}
+
+    <p>
+        Track Genre(s):
+        {% for genre in track.genres %}
+            <b>{{ genre.name }}</b><br>
+        {% endfor %}
+    </p>
+
+            {% if reviews == [] %}
+                <h2>No Reviews</h2>
+
+            {% else %}
+                <h2>Ratings: {{ average_rating }} </h2>
+                <p>
+                    {% for review in reviews %}
+                        <b>{{ review.user }}</b><br>
+                        <b>{{ review.rating }}</b><br>
+                        <b>{{ review.review_text }}</b>
+                    {% endfor %}
+                </p>
+            {% endif %}
+</body>
+</html>
