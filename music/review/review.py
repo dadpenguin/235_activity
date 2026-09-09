@@ -5,6 +5,7 @@ import music.adapters.repository as repo
 from music.domainmodel.favourite import Favourite
 from music.domainmodel.user import User
 from music.domainmodel.review import Review
+from datetime import datetime
 
 review_blueprint = Blueprint(
     "review_bp", __name__, url_prefix="/review"
@@ -35,7 +36,7 @@ def make_review_final(track_id: int):
 
         review_id = len(reviews) + 1
 
-        new_review = Review(review_id=review_id, user=AuthService.get_authenticated_user_name(), track=repo.repo_instance.get_track(track_id), rating=stars, review_text=paragraph)
+        new_review = Review(review_id=review_id, user=AuthService.get_authenticated_user_name(), track=repo.repo_instance.get_track(track_id), rating=stars, review_text=paragraph,timestamp = datetime.now())
         repo.repo_instance.add_review(new_review)
         return redirect(url_for("track_detail_bp.track_detail", track_id=track_id))
 

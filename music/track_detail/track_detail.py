@@ -26,6 +26,8 @@ def track_detail(track_id: int):
         return "Track not found", 404
 
     reviews = repo.repo_instance.get_reviews_by_track(track_id)
+    reviews.sort(key=lambda review: review.timestamp, reverse=True)
+
     for review in reviews:
         total_rating += review.rating
         average_rating = total_rating / len(reviews)
