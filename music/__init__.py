@@ -59,8 +59,6 @@ def create_app(test_config=None):
 
     app.extensions['repository'] = repository
 
-    # populate(data_path, repository)
-
     register_blueprints(app)
 
 
