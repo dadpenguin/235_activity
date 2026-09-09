@@ -8,10 +8,6 @@ favourite_blueprint = Blueprint(
     "favourite_bp", __name__, url_prefix="/favourite"
 )
 
-unfavourite_blueprint = Blueprint(
-    "unfavourite_bp", __name__, url_prefix="/unfavourite"
-)
-
 
 @favourite_blueprint.route('/<int:track_id>')
 def favourite(track_id: int):
@@ -23,7 +19,7 @@ def favourite(track_id: int):
 
     return redirect(url_for('track_detail_bp.track_detail', track_id=track_id))
 
-@unfavourite_blueprint.route('/<int:track_id>')
+@favourite_blueprint.route('/remove/<int:track_id>')
 def unfavourite(track_id: int):
 
     for favourite in repo.repo_instance.get_favourites_by_user("Steve"):
