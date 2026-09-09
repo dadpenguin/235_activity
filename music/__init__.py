@@ -37,6 +37,12 @@ def register_blueprints(app: Flask):
         from .track_detail import track_detail
         app.register_blueprint(track_detail.track_detail_blueprint)
 
+        from .browse import browse
+        app.register_blueprint(browse.browse_blueprint)
+
+        from .review import review
+        app.register_blueprint(review.review_blueprint)
+
 
 def init_config(app: Flask, test_config):
 
