@@ -8,7 +8,6 @@ favourite_blueprint = Blueprint(
     "favourite_bp", __name__, url_prefix="/favourite"
 )
 
-
 @favourite_blueprint.route('/<int:track_id>')
 def favourite(track_id: int):
     new_track = repo.repo_instance.get_track(track_id)
