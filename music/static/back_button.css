@@ -1,0 +1,29 @@
+/* =========================================
+   BACK BUTTON
+   ========================================= */
+
+.back-button-container {
+    margin: 20px 30px;
+}
+
+.back-button {
+    padding: 0.7rem 1.2rem;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #34394b;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.back-button:hover {
+    color: #ff7900;
+    border-color: #ff7900;
+    background-color: #171b2a;
+}

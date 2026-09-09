@@ -1,0 +1,46 @@
+<nav class="navbar">
+
+    <div class="navbar-left">
+        <a href="/" class="navbar-logo">
+            LOGO
+        </a>
+    </div>
+
+    <form class="navbar-search" action="/search" method="GET">
+
+        <input
+            type="text"
+            name="query"
+            placeholder="Search..."
+            class="navbar-search-input"
+            required
+        >
+
+        <button
+            type="submit"
+            class="navbar-search-button">
+            Search
+        </button>
+
+    </form>
+
+    <div class="navbar-right">
+
+        <a href="/browse" class="nav-link">
+            Browse
+        </a>
+
+        <a href="/favourites" class="nav-link">
+            Favourites
+        </a>
+
+        <a
+            href="/logout"
+            class="nav-button logout-button"
+            style="color: #ff7900 !important;">
+            Sign Out
+        </a>
+
+    </div>
+
+</nav>

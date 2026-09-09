@@ -6,5 +6,125 @@
 </head>
 <body>
 
+    <form action = '/browse/id/{{ page }}' method = 'get'>
+        <input type="hidden" name="page" value="{{ page }}">
+        <button type="submit">id</button>
+    </form>
+
+    <form action = '/browse/genre/{{ page }}' method = 'get'>
+        <input type="hidden" name="page" value="{{ page }}">
+        <button type="submit">genre</button>
+    </form>
+
+    <form action = '/browse/alphabetical/{{ page }}' method = 'get'>
+        <input type="hidden" name="page" value="{{ page }}">
+        <button type="submit">alphabetical</button>
+    </form>
+
+    <form action = '/browse/artist/{{ page }}' method = 'get'>
+        <input type="hidden" name="page" value="{{ page }}">
+        <button type="submit">artist</button>
+    </form>
+
+    <form action = '/browse/album/{{ page }}' method = 'get'>
+        <input type="hidden" name="page" value="{{ page }}">
+        <button type="submit">album</button>
+    </form>
+
+    {% if sorting == "id" %}
+        <ul>
+            {% for track in tracks %}
+                <li><a href="/track/{{ track.track_id }}">{{ track.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    {% elif sorting == "genre" %}
+        <ul>
+            {% for genre in main_dict %}
+                <li><b>{{ genre.name }}</b></li>
+                {% for track in main_dict[genre] %}
+                    <li><a href="/track/{{ track.track_id }}">{{ track.title }}</a></li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+    {% if sorting == "alphabetical" %}
+        <ul>
+            {% for letter in main_dict %}
+                <li><b>{{ letter }}</b></li>
+                {% for track in main_dict[letter] %}
+                    <li><a href="/track/{{ track.track_id }}">{{ track.title }}</a></li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+    {% if sorting == "artist" %}
+        <ul>
+            {% for artist in main_dict %}
+                <li><b>{{ artist }}</b></li>
+                {% for track in main_dict[artist] %}
+                    <li><a href="/track/{{ track.track_id }}">{{ track.title }}</a></li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+    {% if sorting == "album" %}
+        <ul>
+            {% for album in main_dict %}
+                <li><b>{{ album }}</b></li>
+                {% for track in main_dict[album] %}
+                    <li><a href="/track/{{ track.track_id }}">{{ track.title }}</a></li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+    {% if page > 1 %}
+
+        <form method = "GET" action = "/browse/{{ sorting }}/{{ page - 1 }}">
+            <button type = "submit">Back</button>
+        </form>
+
+    {% endif %}
+
+    {% if page < pages|length %}
+        <form method = "GET" action = "/browse/{{ sorting }}/{{ page + 1 }}">
+            <button type = "submit">{{ page + 1 }}</button>
+        </form>
+    {% endif %}
+
+    {%  if page < pages|length - 1 %}
+        <form method = "GET" action = "/browse/{{ sorting }}/{{ page + 2 }}">
+            <button type = "submit">{{ page + 2 }}</button>
+        </form>
+    {% endif %}
+
+    {%  if page < pages|length - 2 %}
+        <form method = "GET" action = "/browse/{{ sorting }}/{{ page + 3 }}">
+            <button type = "submit">{{ page + 3 }}</button>
+        </form>
+    {% endif %}
+
+    {% if page != pages|length %}
+        <form method = "GET" action = "/browse/{{ sorting }}/{{ pages|length }}">
+            <button type = "submit">...</button>
+        </form>
+    {% endif %}
+
+    {% if page < pages|length %}
+
+        <form method = "GET" action = "/browse/{{ sorting }}/{{ page + 1 }}">
+            <button type = "submit">Next Page</button>
+        </form>
+
+    {% endif %}
+
 </body>
 </html>
