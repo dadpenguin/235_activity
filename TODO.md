@@ -14,7 +14,7 @@ Franklin
 
 Nathan
 - [ ] Unit & Integration tests for Search & Browse
-- [ ] Making Browse into BrowseService
+- [X] Making Browse into BrowseService
 - [ ] New Updated Abstract Repo Unit tests
 
 
