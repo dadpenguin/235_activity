@@ -143,8 +143,30 @@ body {
     color: #c62828;
 
     font-size: 13px;
+    list-style: none;
 }
 
+/*Back button*/
+.auth-back-button {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    color: #555555;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.auth-back-button:hover {
+    color: #ff7900;
+}
+
+/* Responsive Design */
 @media screen and (max-width: 500px) {
 
     .auth-wrapper {
