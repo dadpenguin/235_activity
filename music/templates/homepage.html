@@ -16,7 +16,11 @@
 
 <body>
 
-{%  include 'navbar.html' %}
+    {% if 'user_name' in session %}
+        {% include 'navbar_auth.html' %}
+    {% else %}
+        {% include 'navbar.html' %}
+    {% endif %}
 
     <div class="home-card">
 
@@ -31,7 +35,7 @@
         <div class="action-row">
 
 
-            <a href="/browse/alphabetical/1" class="browse-btn">
+            <a href="/browse/genre/1" class="browse-btn">
                 Browse
             </a>
 
