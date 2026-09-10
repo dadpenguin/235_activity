@@ -43,7 +43,6 @@ def register():
         except NameNotUniqueException:
             user_name_not_unique = 'Your user name is already taken - Please supply another'
 
-    # TODO: create the template
 
     return render_template(
             'authentication/credentials.html',
@@ -84,7 +83,6 @@ def login():
         except AuthenticationException:
             password_does_not_match_user_name = 'Password does not match the supplied user name - Please check and try again'
 
-    # TODO: complete the template blueprint
     return render_template(
            'authentication/credentials.html',
            title='Login',
@@ -94,10 +92,6 @@ def login():
        )
 
 
-
-
-
-# TODO: create authentication blueprint
 @authentication_blueprint.route('/logout')
 def logout():
     session.clear()
@@ -147,7 +141,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    user_name = StringField("User_name", [DataRequired()])
+    user_name = StringField("Username", [DataRequired()])
     password = PasswordField("Password", [DataRequired()])
 
     submit = SubmitField('Login')
