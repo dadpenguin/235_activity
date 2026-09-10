@@ -26,18 +26,18 @@
 
     <div class="navbar-right">
 
-        <a href="/browse" class="nav-link">
+        <a href="/browse/alphabetical/1" class="navbar-browse">
             Browse
         </a>
 
-        <a href="/favourites" class="nav-link">
-            Favourites
+        <a href="{{ url_for('favourite_bp.favourites') }}"
+           class="nav-link">
+            My Favourites
         </a>
 
-        <a
-            href="/logout"
-            class="nav-button logout-button"
-            style="color: #ff7900 !important;">
+        <a href="{{ url_for('authentication_bp.logout') }}"
+           class="nav-button logout-button"
+           style="color: #ff7900 !important;">
             Sign Out
         </a>
 

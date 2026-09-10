@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    color: #222222;
+}
+
+.auth-wrapper {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+
+    background-color: white;
+
+    padding: 40px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.auth-logo {
+    text-align: center;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    margin-bottom: 20px;
+
+    color: #ff7900;
+}
+
+.auth-heading {
+    text-align: center;
+
+    font-size: 30px;
+
+    margin-bottom: 30px;
+
+    color: #222222;
+}
+
+.auth-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    color: #333333;
+}
+
+.form-input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: #ff7900;
+
+    box-shadow: 0 0 0 3px rgba(255, 121, 0, 0.15);
+}
+
+.auth-submit-button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #ff7900;
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.auth-submit-button:hover {
+    background-color: #e66d00;
+}
+
+.auth-switch-text {
+    text-align: center;
+
+    margin-top: 25px;
+
+    font-size: 14px;
+
+    color: #555555;
+}
+
+.auth-switch-link {
+    color: #ff7900;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.auth-switch-link:hover {
+    text-decoration: underline;
+}
+
+.errors {
+    margin-top: 8px;
+    padding-left: 18px;
+
+    color: #c62828;
+
+    font-size: 13px;
+}
+
+@media screen and (max-width: 500px) {
+
+    .auth-wrapper {
+        padding: 20px;
+    }
+
+    .auth-card {
+        padding: 30px 22px;
+    }
+
+    .auth-heading {
+        font-size: 26px;
+    }
+}

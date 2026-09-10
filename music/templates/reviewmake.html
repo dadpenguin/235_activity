@@ -1,16 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Make a Review</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Write a Review</title>
+
+    <!-- Navbar CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='navbar.css') }}"
+    >
+
+    <!-- Review CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='review.css') }}"
+    >
 </head>
+
 <body>
 
-    <form action="/review/make/final/{{ track_id }}" method="get">
-        <input type="number" name="stars" min = 1 max = 5 required><br>
-        <textarea name="paragraph" rows="5" cols="40" placeholder="Typer your review here:" required></textarea>
-        <button type="Submit">Submit</button>
-    </form>
+    {% if 'user_name' in session %}
+        {% include 'navbar_auth.html' %}
+    {% else %}
+        {% include 'navbar.html' %}
+    {% endif %}
+
+    <main class="review-page">
+
+        <section class="review-form-card">
+
+            <div class="review-header">
+
+                <span class="review-label">
+                    Review
+                </span>
+
+                <h1>
+                    Write a Review
+                </h1>
+
+                <p>
+                    Share your thoughts and rate this track.
+                </p>
+
+            </div>
+
+
+            <form
+                action="/review/make/final/{{ track_id }}"
+                method="GET"
+                class="review-form"
+            >
+
+                <div class="form-group">
+
+                    <label
+                        for="stars"
+                        class="form-label"
+                    >
+                        Rating
+                    </label>
+
+                    <div class="rating-input">
+
+                        <input
+                            type="number"
+                            id="stars"
+                            name="stars"
+                            min="1"
+                            max="5"
+                            placeholder="1 - 5"
+                            required
+                        >
+
+                        <span class="rating-text">
+                            out of 5
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label
+                        for="paragraph"
+                        class="form-label"
+                    >
+                        Your Review
+                    </label>
+
+                    <textarea
+                        id="paragraph"
+                        name="paragraph"
+                        rows="6"
+                        placeholder="Type your review here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="review-actions">
+
+                    <button
+                        type="submit"
+                        class="submit-review-button"
+                    >
+                        Submit Review
+                    </button>
+
+                    <a
+                        href="/track/{{ track_id }}"
+                        class="cancel-button"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
 
 </body>
+
 </html>

@@ -1,62 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Track Details</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ track.title }} - Track Details</title>
+
+    <!-- Navbar CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='navbar.css') }}"
+    >
+
+    <!-- Track Detail CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='track_detail.css') }}"
+    >
 </head>
+
 <body>
-    <h1>{{ track.title }}</h1>
-    <h2>{{ track.artist.full_name }}</h2>
-    <h2>{{ track.release_year }}</h2>
-    <p>Track Duration: <b>{{ track.track_duration }}</b></p>
-    <p>Track Album: <b>{{ track.album.title }}</b></p>
 
-
-    {% if favourited == False %}
-        <form action = "{{ url_for('favourite_bp.favourite', track_id=track.track_id) }}" method = 'get'>
-            <button type="submit">Favourite</button>
-        </form>
-
+    {% if 'user_name' in session %}
+        {% include 'navbar_auth.html' %}
     {% else %}
-        <form action = "{{ url_for('favourite_bp.unfavourite', track_id=track.track_id) }}" method = 'get'>
-            <button type="submit">Unfavourite</button>
-        </form>
-
+        {% include 'navbar.html' %}
     {% endif %}
 
-    <p>
-        Track Genre(s):
-        {% for genre in track.genres %}
-            <b>{{ genre.name }}</b><br>
-        {% endfor %}
-    </p>
+    <main class="track-detail-page">
 
-    {% if logged_in == None %}
-        <form action = "/authentication/signup" method = "get">
-            <button type="submit">Create Account to Make a Review</button>
-        </form>
-
-    {% else %}
-        <form action = "/review/make/{{ track.track_id }}" method = "get">
-            <button type = "submit">Make a Review!</button>
-        </form>
+        <!-- Back Button -->
+        {% include 'back_button.html' %}
 
 
-    {% endif %}
+        <section class="track-card">
 
-    {% if reviews == [] %}
-        <h2>No Reviews</h2>
+            <div class="track-header">
 
-    {% else %}
-        <h2>Ratings: {{ average_rating }} </h2>
-        <p>
-            {% for review in reviews %}
-                <br>
-                <b>{{ review.user }}</b><br>
-                <b>{{ review.rating }}/5</b><br>
-                <b>{{ review.review_text }}</b><br>
-            {% endfor %}
-        </p>
-    {% endif %}
+                <span class="track-label">
+                    Track
+                </span>
+
+                <h1>
+                    {% if track.title and track.title != '""' %}
+                        {{ track.title }}
+                    {% else %}
+                        Untitled Track
+                    {% endif %}
+                </h1>
+
+                {% if track.artist %}
+                    <h2>
+                        {{ track.artist.full_name }}
+                    </h2>
+                {% endif %}
+
+            </div>
+
+
+            <div class="track-information">
+
+                <div class="track-info-item">
+                    <span class="info-label">
+                        Album
+                    </span>
+
+                    <span class="info-value">
+                        {% if track.album %}
+                            {{ track.album.title }}
+                        {% else %}
+                            Unknown Album
+                        {% endif %}
+                    </span>
+                </div>
+
+
+                <div class="track-info-item">
+                    <span class="info-label">
+                        Duration
+                    </span>
+
+                    <span class="info-value">
+                        {{ track.track_duration }}
+                    </span>
+                </div>
+
+
+                <div class="track-info-item">
+                    <span class="info-label">
+                        Release Year
+                    </span>
+
+                    <span class="info-value">
+                        {% if track.release_year %}
+                            {{ track.release_year }}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="genre-section">
+
+                <h3>Genres</h3>
+
+                <div class="genre-list">
+
+                    {% for genre in track.genres %}
+
+                        <span class="genre-tag">
+                            {{ genre.name }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <div class="track-actions">
+
+                {% if logged_in != None %}
+
+                    {% if favourited == False %}
+
+                        <form
+                            action="{{ url_for('favourite_bp.favourite', track_id=track.track_id) }}"
+                            method="GET"
+                        >
+                            <button
+                                type="submit"
+                                class="action-button favourite-button"
+                            >
+                                Add to Favourites
+                            </button>
+                        </form>
+
+                    {% else %}
+
+                        <form
+                            action="{{ url_for('favourite_bp.unfavourite', track_id=track.track_id) }}"
+                            method="GET"
+                        >
+                            <button
+                                type="submit"
+                                class="action-button unfavourite-button"
+                            >
+                                Remove from Favourites
+                            </button>
+                        </form>
+
+                    {% endif %}
+
+
+                    <form
+                        action="/review/make/{{ track.track_id }}"
+                        method="GET"
+                    >
+                        <button
+                            type="submit"
+                            class="action-button review-button"
+                        >
+                            Write a Review
+                        </button>
+                    </form>
+
+                {% else %}
+
+                    <a
+                        href="{{ url_for('authentication_bp.register') }}"
+                        class="action-button account-button"
+                    >
+                        Create an Account to Review
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <section class="reviews-section">
+
+            <div class="reviews-header">
+
+                <h2>Reviews</h2>
+
+                {% if reviews != [] %}
+
+                    <div class="average-rating">
+
+                        <span class="rating-number">
+                            {{ average_rating }}
+                        </span>
+
+                        <span class="rating-out-of">
+                            / 5
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            {% if reviews == [] %}
+
+                <div class="no-reviews">
+
+                    <h3>No Reviews Yet</h3>
+
+                    <p>
+                        Be the first to review this track.
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <div class="review-list">
+
+                    {% for review in reviews %}
+
+                        <article class="review-card">
+
+                            <div class="review-card-header">
+
+                                <span class="review-user">
+                                    {{ review.user }}
+                                </span>
+
+                                <span class="review-rating">
+                                    {{ review.rating }}/5
+                                </span>
+
+                            </div>
+
+                            <p class="review-text">
+                                {{ review.review_text }}
+                            </p>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
 </body>
+
 </html>

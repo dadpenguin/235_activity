@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Favourites</title>
+
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="../static/navbar.css">
+
+    <!-- Favourites CSS -->
+    <link rel="stylesheet" href="../static/favourites.css">
+</head>
+
+<body>
+
+    {% include 'navbar_auth.html' %}
+
+    <main class="favourites-page">
+
+        <h1>My Favourites</h1>
+
+        {% if favourites %}
+
+            {% for favourite in favourites %}
+
+                <div class="favourite-card">
+                    <h2>{{ favourite.track.title }}</h2>
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No favourites yet.</p>
+
+        {% endif %}
+
+    </main>
+
+</body>
+
+</html>

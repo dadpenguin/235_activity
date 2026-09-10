@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Authentication{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="auth-wrapper">
-        <div class="auth-card">
-            <h2>{% block auth_heading %}{% endblock %}</h2>
 
-            <!-- Unique form content goes here -->
-            {% block form_content %}{% endblock %}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        Authentication
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='auth.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="auth-wrapper">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                MUSIC LIBRARY
+            </div>
+
+            <h2 class="auth-heading">
+                {% block auth_heading %}
+                {% endblock %}
+            </h2>
+
+            {% block form_content %}
+            {% endblock %}
+
         </div>
+
     </div>
+
 </body>
+
 </html>
