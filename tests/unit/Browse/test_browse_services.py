@@ -1,9 +1,9 @@
 import pytest
 
-
-from music.adapters.memory_repository import MemoryRepository
 import music.adapters.repository as repo
+from music.adapters.memory_repository import MemoryRepository
 from music.browse.services import BrowseService
+
 
 class TestBrowseService:
 
