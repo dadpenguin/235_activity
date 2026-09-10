@@ -2,6 +2,7 @@ from flask import Blueprint, redirect, render_template, url_for
 from flask.helpers import abort
 
 import music.adapters.repository as repo
+from music.authentication.authentication import login_required
 from music.authentication.services import AuthService
 from music.review.exceptions import ReviewFieldsMissing
 from music.review.forms import ReviewForm
@@ -14,10 +15,8 @@ review_blueprint = Blueprint(
 
 
 @review_blueprint.route("/make/<int:track_id>", methods=["GET", "POST"])
-def create_review(track_id: int):
-    user_name = AuthService.get_authenticated_user_name()
-    if user_name is None:
-        return redirect(url_for("signup"))
+@login_required
+def create_review(user_name: str, track_id: int):
 
     form = ReviewForm(track_id=track_id)
     review_error_message = None

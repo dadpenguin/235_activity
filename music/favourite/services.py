@@ -6,6 +6,10 @@ from music.track.services import TrackService
 
 class FavouriteService:
 
+    @classmethod
+    def get_favourites_by_user(cls, user_name, repo: AbstractRepository):
+        return repo.get_favourites_by_user(user_name)
+
 
     @classmethod
     def get_user(cls, user_name: str, repo: AbstractRepository):
