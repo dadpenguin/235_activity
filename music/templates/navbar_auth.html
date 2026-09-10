@@ -1,9 +1,12 @@
 <nav class="navbar">
 
     <div class="navbar-left">
-        <a href="/" class="navbar-logo">
-            LOGO
-        </a>
+       <!-- Logo -->
+    <a href="/" class="navbar-logo">
+        <img src="{{ url_for('static', filename='Logo/logo.png') }}"
+             alt="Music Library Logo"
+             class="navbar-logo-image">
+    </a>
     </div>
 
     <form class="navbar-search" action="/search" method="GET">

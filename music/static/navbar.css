@@ -298,6 +298,21 @@
     }
 }
 
+/* =========================================
+   Logo
+   ========================================= */
+    .navbar-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .navbar-logo-image {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        display: block;
+    }
 
 /* =========================================
    RESPONSIVE - MOBILE
@@ -340,4 +355,5 @@
     .navbar-search-button {
         padding: 0 0.7rem;
     }
+
 }
