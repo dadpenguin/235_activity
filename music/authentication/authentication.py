@@ -1,6 +1,7 @@
 from functools import wraps
 
-from flask import Blueprint, redirect, render_template, session, url_for
+from flask import Blueprint, redirect, render_template, request, session, url_for
+from flask.helpers import abort
 from password_validator import PasswordValidator
 from wtforms.validators import ValidationError
 
@@ -101,10 +102,14 @@ def logout():
     session.clear()
     return redirect(url_for('root.homepage'))
 
-def login_required(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if 'user_name' not in session:
-            return redirect(url_for('authentication_bp.login'))
-        return view(**kwargs)
+def login_required(view_func):
+    """Decorator to enforce authentication for route handlers."""
+    @wraps(view_func)
+    def wrapped_view(*args, **kwargs):
+        user_name = AuthService.get_authenticated_user_name()
+        if not user_name:
+            if request.method == "GET":
+                return redirect(url_for('authentication_bp.login'))
+            abort(401)
+        return view_func(user_name, *args, **kwargs)
     return wrapped_view

@@ -132,23 +132,19 @@
 
                     {% if favourited == False %}
 
-                        <form
-                            action="{{ url_for('favourite_bp.favourite', track_id=track.track_id) }}"
-                            method="GET"
-                        >
-                            <button
-                                type="submit"
-                                class="action-button favourite-button"
-                            >
-                                Add to Favourites
-                            </button>
-                        </form>
+                    <form action="{{ url_for('favourite_bp.favourite', track_id=track.track_id) }}" method="POST">
+                        <button type="submit" class="action-button favourite-button">
+                            Add to Favourites
+                        </button>
+                    </form>
+
+
 
                     {% else %}
 
                         <form
                             action="{{ url_for('favourite_bp.unfavourite', track_id=track.track_id) }}"
-                            method="GET"
+                            method="POST"
                         >
                             <button
                                 type="submit"

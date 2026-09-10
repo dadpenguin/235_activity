@@ -2,6 +2,7 @@ from flask import redirect, url_for, Blueprint, session, render_template
 from flask.helpers import abort
 
 import music.adapters.repository as repo
+from music.authentication.authentication import login_required
 from music.authentication.services import AuthService
 from music.domainmodel.favourite import Favourite
 from music.domainmodel.user import User
@@ -15,64 +16,34 @@ favourite_blueprint = Blueprint(
 )
 
 
-@favourite_blueprint.route('/favourites')
-def favourites():
-    user_name = AuthService.get_authenticated_user_name()
-
-    if user_name is None or user_name == "":
-        return redirect(url_for('authentication_bp.login'))
-
-    favourites = repo.repo_instance.get_favourites_by_user(user_name)
-
-    return render_template(
-        'favourites.html',
-        favourites=favourites
+@favourite_blueprint.route('/favourites', methods=['GET'])
+@login_required
+def favourites(user_name: str):
+    user_favourites = FavouriteService.get_favourites_by_user(
+        user_name, repo.repo_instance
     )
+    return render_template('favourites.html', favourites=user_favourites)
 
 
-@favourite_blueprint.route('/<int:track_id>')
-def favourite(track_id: int):
-    user_name = AuthService.get_authenticated_user_name()
-
-    if user_name is None or user_name == "":
-        return abort(401)
-
-    isSuccessful = FavouriteService.register_favourite(
-        user_name,
-        track_id,
-        repo.repo_instance
+@favourite_blueprint.route('/<int:track_id>', methods=['POST'])
+@login_required
+def favourite(user_name: str, track_id: int):
+    success = FavouriteService.register_favourite(
+        user_name, track_id, repo.repo_instance
     )
+    if not success:
+        abort(500)
 
-    if isSuccessful:
-        return redirect(
-            url_for(
-                'track_detail_bp.track_detail',
-                track_id=track_id
-            )
-        )
-    else:
-        return "error"
+    return redirect(url_for('track_detail_bp.track_detail', track_id=track_id))
 
 
-@favourite_blueprint.route('/remove/<int:track_id>')
-def unfavourite(track_id: int):
-    user_name = AuthService.get_authenticated_user_name()
-
-    if user_name is None or user_name == "":
-        return abort(401)
-
-    isSuccessful = FavouriteService.remove_favourite(
-        user_name,
-        track_id,
-        repo.repo_instance
+@favourite_blueprint.route('/remove/<int:track_id>', methods=['POST'])
+@login_required
+def unfavourite(user_name: str, track_id: int):
+    success = FavouriteService.remove_favourite(
+        user_name, track_id, repo.repo_instance
     )
+    if not success:
+        abort(500)
 
-    if isSuccessful:
-        return redirect(
-            url_for(
-                'track_detail_bp.track_detail',
-                track_id=track_id
-            )
-        )
-    else:
-        return "error"
+    return redirect(url_for('track_detail_bp.track_detail', track_id=track_id))
