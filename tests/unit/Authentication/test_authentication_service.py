@@ -21,7 +21,6 @@ class TestAuthService:
 
     @pytest.fixture
     def repo(self):
-        # Instantiate a fresh in-memory repository before each test
         repo_module.repo_instance = MemoryRepository()
         return repo_module.repo_instance
 
