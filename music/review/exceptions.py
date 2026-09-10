@@ -1,0 +1,2 @@
+class ReviewFieldsMissing(Exception):
+    pass

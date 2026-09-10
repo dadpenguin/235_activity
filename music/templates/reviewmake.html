@@ -3,24 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Write a Review</title>
+    <title>{{ title if title else 'Write a Review' }}</title>
 
     <!-- Navbar CSS -->
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='navbar.css') }}"
-    >
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
 
     <!-- Review CSS -->
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='review.css') }}"
-    >
+    <link rel="stylesheet" href="{{ url_for('static', filename='review.css') }}">
 </head>
 
 <body>
@@ -36,94 +27,62 @@
         <section class="review-form-card">
 
             <div class="review-header">
-
-                <span class="review-label">
-                    Review
-                </span>
-
-                <h1>
-                    Write a Review
-                </h1>
-
-                <p>
-                    Share your thoughts and rate this track.
-                </p>
-
+                <span class="review-label">Review</span>
+                <h1>Write a Review</h1>
+                <p>Share your thoughts and rate this track.</p>
             </div>
 
+            <!-- Server-level general error message -->
+            {% if review_error_message %}
+                <div class="error-message" style="color: red; margin-bottom: 1rem;">
+                    {{ review_error_message }}
+                </div>
+            {% endif %}
 
-            <form
-                action="/review/make/final/{{ track_id }}"
-                method="GET"
-                class="review-form"
-            >
+            <form action="{{ handler_url if handler_url else url_for('review_bp.create_review', track_id=track_id) }}"
+                  method="POST"
+                  class="review-form">
 
+                <!-- Hidden inputs (includes CSRF Token and form.track_id) -->
+                {{ form.hidden_tag() }}
+
+                <!-- Stars Rating Field -->
                 <div class="form-group">
-
-                    <label
-                        for="stars"
-                        class="form-label"
-                    >
-                        Rating
-                    </label>
+                    {{ form.stars.label(class="form-label") }}
 
                     <div class="rating-input">
-
-                        <input
-                            type="number"
-                            id="stars"
-                            name="stars"
-                            min="1"
-                            max="5"
-                            placeholder="1 - 5"
-                            required
-                        >
-
-                        <span class="rating-text">
-                            out of 5
-                        </span>
-
+                        {{ form.stars(min=1, max=5, placeholder="1 - 5") }}
+                        <span class="rating-text">out of 5</span>
                     </div>
 
+                    {% for error in form.stars.errors %}
+                        <span class="field-error" style="color: red; font-size: 0.85rem;">
+                            {{ error }}
+                        </span>
+                    {% endfor %}
                 </div>
 
-
+                <!-- Review Text Field -->
                 <div class="form-group">
+                    {{ form.paragraph.label(class="form-label") }}
 
-                    <label
-                        for="paragraph"
-                        class="form-label"
-                    >
-                        Your Review
-                    </label>
+                    {{ form.paragraph(rows=6, placeholder="Type your review here...") }}
 
-                    <textarea
-                        id="paragraph"
-                        name="paragraph"
-                        rows="6"
-                        placeholder="Type your review here..."
-                        required
-                    ></textarea>
-
+                    {% for error in form.paragraph.errors %}
+                        <span class="field-error" style="color: red; font-size: 0.85rem;">
+                            {{ error }}
+                        </span>
+                    {% endfor %}
                 </div>
 
-
+                <!-- Submit and Cancel Actions -->
                 <div class="review-actions">
+                    {{ form.submit(class="submit-review-button") }}
 
-                    <button
-                        type="submit"
-                        class="submit-review-button"
-                    >
-                        Submit Review
-                    </button>
-
-                    <a
-                        href="/track/{{ track_id }}"
-                        class="cancel-button"
-                    >
+                    <a href="{{ url_for('track_detail_bp.track_detail', track_id=track_id) if 'track_detail_bp' in config else '/track/' ~ track_id }}"
+                       class="cancel-button">
                         Cancel
                     </a>
-
                 </div>
 
             </form>

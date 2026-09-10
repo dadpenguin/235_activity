@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from flask.helpers import abort
 
 import music.adapters.repository as repo
 from music.authentication.services import AuthService
@@ -17,7 +18,7 @@ def track_detail(track_id: int):
     favourited = TrackService.is_user_favourite(user_name, repo.repo_instance, track_id)
 
     if not track:
-        return "Track not found", 404
+        abort(404)
 
     reviews = TrackService.get_reviews_by_track_id(track_id, repo.repo_instance)
 

@@ -2,18 +2,13 @@ from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from music.adapters.repository import AbstractRepository
+from music.authentication.exceptions import (
+    AuthenticationException,
+    NameNotUniqueException,
+    UnknownUserException,
+)
 from music.domainmodel.user import User
 from utils.user import generate_random_user_id
-
-
-class NameNotUniqueException(Exception):
-    pass
-
-class UnknownUserException(Exception):
-    pass
-
-class AuthenticationException(Exception):
-    pass
 
 
 class AuthService:
