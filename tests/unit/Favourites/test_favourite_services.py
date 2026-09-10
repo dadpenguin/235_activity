@@ -42,5 +42,5 @@ def test_remove_favourite():
         10,
         repo
     )
-
+#
     assert result is True

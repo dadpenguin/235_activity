@@ -25,7 +25,7 @@ def test_favourites_page_loads(client):
 
     assert response.status_code == 200
 
-
+#check if the response contains the expected content
 def test_favourites_page_redirects_if_not_logged_in(client):
     response = client.get("/favourite/favourites")
 
