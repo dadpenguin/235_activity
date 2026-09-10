@@ -1,0 +1,2 @@
+class TrackNotFound(Exception):
+    pass

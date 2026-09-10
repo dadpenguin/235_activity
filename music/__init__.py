@@ -42,6 +42,9 @@ def register_blueprints(app: Flask):
         from .review import review
         app.register_blueprint(review.review_blueprint)
 
+        from .root import error_handlers
+        app.register_blueprint(error_handlers.errors_blueprint)
+
 
 
 

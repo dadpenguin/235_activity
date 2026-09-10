@@ -1,6 +1,7 @@
 import math
 
 from flask import render_template, request, Blueprint
+from flask.helpers import abort
 
 import music.adapters.repository as repo
 import music.browse.services as services
@@ -90,7 +91,7 @@ def browse(sorting: str, page: int):
                 main_dict = {}
 
     if page < 1 or page > len(pages):
-        return "Page not found", 404
+        return abort(404)
 
     if sorting == "id":
         tracks = pages[page - 1]

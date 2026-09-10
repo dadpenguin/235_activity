@@ -1,3 +1,4 @@
+
 def login_test_user(client):
     with client.session_transaction() as session:
         session['user_name'] = 'thorke'

@@ -1,4 +1,5 @@
 from flask import redirect, url_for, Blueprint, session, render_template
+from flask.helpers import abort
 
 import music.adapters.repository as repo
 from music.authentication.services import AuthService
@@ -34,7 +35,7 @@ def favourite(track_id: int):
     user_name = AuthService.get_authenticated_user_name()
 
     if user_name is None or user_name == "":
-        return "must be logged in"
+        return abort(401)
 
     isSuccessful = FavouriteService.register_favourite(
         user_name,
@@ -58,7 +59,7 @@ def unfavourite(track_id: int):
     user_name = AuthService.get_authenticated_user_name()
 
     if user_name is None or user_name == "":
-        return "must be logged in"
+        return abort(401)
 
     isSuccessful = FavouriteService.remove_favourite(
         user_name,
