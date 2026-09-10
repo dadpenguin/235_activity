@@ -1,9 +1,12 @@
 <nav class="navbar">
 
     <div class="navbar-left">
-        <a href="/" class="navbar-logo">
-            LOGO
-        </a>
+       <!-- Logo -->
+    <a href="/" class="navbar-logo">
+        <img src="{{ url_for('static', filename='Logo/logo.png') }}"
+             alt="Music Library Logo"
+             class="navbar-logo-image">
+    </a>
     </div>
 
     <form class="navbar-search" action="/search" method="GET">
@@ -26,18 +29,18 @@
 
     <div class="navbar-right">
 
-        <a href="/browse" class="nav-link">
+        <a href="/browse/alphabetical/1" class="navbar-browse">
             Browse
         </a>
 
-        <a href="/favourites" class="nav-link">
-            Favourites
+        <a href="{{ url_for('favourite_bp.favourites') }}"
+           class="nav-link">
+            My Favourites
         </a>
 
-        <a
-            href="/logout"
-            class="nav-button logout-button"
-            style="color: #ff7900 !important;">
+        <a href="{{ url_for('authentication_bp.logout') }}"
+           class="nav-button logout-button"
+           style="color: #ff7900 !important;">
             Sign Out
         </a>
 

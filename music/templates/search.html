@@ -1,67 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Search Page</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Search Results</title>
 
     <!-- Navbar CSS -->
-    <link rel="stylesheet" href="../static/navbar.css">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='navbar.css') }}"
+    >
 
+    <!-- Search CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='search.css') }}"
+    >
 </head>
+
 <body>
-    {% include 'navbar.html' %}
 
-    <h1>Search Results for "{{ keyword }}" </h1>
-
-    <a href="{{ url_for('search_bp.search', q=keyword) }}">all</a>
-    <a href="{{ url_for('search_bp.search', q=keyword, type='track') }}">Track</a>
-    <a href="{{ url_for('search_bp.search', q=keyword, type='genre') }}">Genre</a>
-    <a href="{{ url_for('search_bp.search', q=keyword, type='artist') }}">Artist</a>
-    <a href="{{ url_for('search_bp.search', q=keyword, type='album') }}">Album</a>
-
-
-
-
-    {% if is_empty %}
-
-        <h2>No Results</h2>
-
+    {% if 'user_name' in session %}
+        {% include 'navbar_auth.html' %}
     {% else %}
-
-        <ul>
-            <h1>Tracks</h1>
-
-            {% for item in results_track %}
-
-                <li><a href="/track/{{ item.track_id }}">{{ item.title }}</a></li>
-            {% endfor %}
-        </ul>
-
-        <ul>
-            <h1>Genre</h1>
-
-            {% for item in results_genre %}
-                <li><b>{{ item.name }}</b></li>
-            {% endfor %}
-        </ul>
-
-        <ul>
-            <h1>Album</h1>
-
-            {% for item in results_album %}
-                <li><b>{{ item.title }}</b></li>
-            {% endfor %}
-        </ul>
-
-        <ul>
-            <h1>Artists</h1>
-            {% for item in results_artist %}
-                <li><b>{{ item.full_name }}</b></li>
-            {% endfor %}
-        </ul>
-
+        {% include 'navbar.html' %}
     {% endif %}
 
+    <main class="search-page">
+
+        <section class="search-header">
+
+            <h1>
+                Search Results
+            </h1>
+
+            <p>
+                Results for
+                <span class="search-keyword">
+                    "{{ keyword }}"
+                </span>
+            </p>
+
+        </section>
+
+
+        <section class="search-filters">
+
+            <a
+                href="{{ url_for('search_bp.search', q=keyword) }}"
+                class="search-filter {% if not request.args.get('type') %}active{% endif %}"
+            >
+                All
+            </a>
+
+            <a
+                href="{{ url_for('search_bp.search', q=keyword, type='track') }}"
+                class="search-filter {% if request.args.get('type') == 'track' %}active{% endif %}"
+            >
+                Tracks
+            </a>
+
+            <a
+                href="{{ url_for('search_bp.search', q=keyword, type='genre') }}"
+                class="search-filter {% if request.args.get('type') == 'genre' %}active{% endif %}"
+            >
+                Genres
+            </a>
+
+            <a
+                href="{{ url_for('search_bp.search', q=keyword, type='artist') }}"
+                class="search-filter {% if request.args.get('type') == 'artist' %}active{% endif %}"
+            >
+                Artists
+            </a>
+
+            <a
+                href="{{ url_for('search_bp.search', q=keyword, type='album') }}"
+                class="search-filter {% if request.args.get('type') == 'album' %}active{% endif %}"
+            >
+                Albums
+            </a>
+
+        </section>
+
+
+        {% if is_empty %}
+
+            <section class="no-results">
+
+                <h2>No Results Found</h2>
+
+                <p>
+                    Try searching for another track,
+                    artist, album, or genre.
+                </p>
+
+            </section>
+
+        {% else %}
+
+            <section class="search-results">
+
+
+                {% if results_track %}
+
+                    <div class="result-section">
+
+                        <h2 class="result-title">
+                            Tracks
+                        </h2>
+
+                        <div class="result-grid">
+
+                            {% for item in results_track %}
+
+                                <a
+                                    href="/track/{{ item.track_id }}"
+                                    class="result-card track-result"
+                                >
+
+                                    <span class="result-type">
+                                        Track
+                                    </span>
+
+                                    <h3>
+                                        {% if item.title and item.title != '""' %}
+                                            {{ item.title }}
+                                        {% else %}
+                                            <span class="missing-value">
+                                                Untitled Track
+                                            </span>
+                                        {% endif %}
+                                    </h3>
+
+                                </a>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if results_genre %}
+
+                    <div class="result-section">
+
+                        <h2 class="result-title">
+                            Genres
+                        </h2>
+
+                        <div class="result-grid">
+
+                            {% for item in results_genre %}
+
+                                <div class="result-card">
+
+                                    <span class="result-type">
+                                        Genre
+                                    </span>
+
+                                    <h3>
+                                        {{ item.name }}
+                                    </h3>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if results_album %}
+
+                    <div class="result-section">
+
+                        <h2 class="result-title">
+                            Albums
+                        </h2>
+
+                        <div class="result-grid">
+
+                            {% for item in results_album %}
+
+                                <div class="result-card">
+
+                                    <span class="result-type">
+                                        Album
+                                    </span>
+
+                                    <h3>
+                                        {% if item.title %}
+                                            {{ item.title }}
+                                        {% else %}
+                                            <span class="missing-value">
+                                                Unknown Album
+                                            </span>
+                                        {% endif %}
+                                    </h3>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if results_artist %}
+
+                    <div class="result-section">
+
+                        <h2 class="result-title">
+                            Artists
+                        </h2>
+
+                        <div class="result-grid">
+
+                            {% for item in results_artist %}
+
+                                <div class="result-card">
+
+                                    <span class="result-type">
+                                        Artist
+                                    </span>
+
+                                    <h3>
+                                        {{ item.full_name }}
+                                    </h3>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+            </section>
+
+        {% endif %}
+
+    </main>
 
 </body>
+
 </html>

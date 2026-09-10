@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f6f8;
+    color: #222222;
+}
+
+.browse-page {
+    width: 90%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 40px 0 60px;
+}
+
+.browse-header {
+    margin-bottom: 30px;
+}
+
+.browse-header h1 {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.browse-header p {
+    color: #666666;
+    font-size: 16px;
+}
+
+.browse-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-bottom: 35px;
+}
+
+.browse-controls form {
+    margin: 0;
+}
+
+.browse-filter {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+
+    background-color: white;
+
+    padding: 10px 18px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.browse-filter:hover {
+    border-color: #ff7900;
+    color: #ff7900;
+
+    transform: translateY(-1px);
+}
+
+.browse-filter.active {
+    background-color: #ff7900;
+    border-color: #ff7900;
+
+    color: white;
+}
+
+.browse-results {
+    margin-top: 10px;
+}
+
+.browse-group {
+    margin-bottom: 40px;
+}
+
+.browse-group-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+
+    padding-bottom: 8px;
+
+    border-bottom: 2px solid #ff7900;
+}
+
+.track-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 16px;
+}
+
+.track-card {
+    display: block;
+
+    background-color: white;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    color: #222222;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.track-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.track-card h3 {
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.track-number {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    color: #ff7900;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 45px;
+}
+
+.pagination form {
+    margin: 0;
+}
+
+.pagination-button {
+    border: none;
+    border-radius: 8px;
+
+    background-color: #ff7900;
+
+    color: white;
+
+    padding: 10px 18px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.pagination-button:hover {
+    background-color: #e66d00;
+}
+
+.current-page {
+    font-size: 14px;
+    font-weight: bold;
+
+    color: #555555;
+}
+
+@media screen and (max-width: 700px) {
+
+    .browse-page {
+        width: 92%;
+        padding-top: 25px;
+    }
+
+    .browse-header h1 {
+        font-size: 30px;
+    }
+
+    .browse-controls {
+        gap: 8px;
+    }
+
+    .browse-filter {
+        padding: 9px 13px;
+    }
+
+    .track-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+}
